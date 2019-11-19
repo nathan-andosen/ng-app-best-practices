@@ -1,0 +1,18 @@
+// SIZING & SPACING SYSTEM /////////////////////////////////////////////////////
+/*
+  Base value: 1rem (16px);
+
+  2px ($size-base-value * 0.125);
+  4px ($size-base-value * 0.25);
+  8px ($size-base-value * 0.5);
+  12px ($size-base-value * 0.75);
+  16px ($size-base-value * 1);
+  20px ($size-base-value * 1.25);
+  24px ($size-base-value * 1.5);
+  32px ($size-base-value * 2);
+  40px ($size-base-value * 2.5);
+  48px ($size-base-value * 3);
+  64px ($size-base-value * 4);
+*/
+
+$size-base-value: 1rem;

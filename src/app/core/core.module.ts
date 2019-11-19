@@ -2,16 +2,22 @@ import { CommonModule } from '@angular/common';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { AppRoutingModule } from '@core/routing/app-routing.module';
 
+import { HeaderComponent } from './components/header';
+import { SharedModule } from '@shared/shared.module';
+
 @NgModule({
   imports: [
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule
   ],
   declarations: [
+    HeaderComponent
   ],
   exports: [
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HeaderComponent
   ]
 })
 export class CoreModule {

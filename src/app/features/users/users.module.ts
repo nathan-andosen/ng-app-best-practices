@@ -4,22 +4,34 @@ import { RouterModule } from '@angular/router';
 
 import { UsersPageComponent } from './users-page.component';
 import { SettingsPageComponent } from './settings-page';
+import { AddressPageComponent, AddressFormComponent } from './address-page';
+
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
     UsersPageComponent,
-    SettingsPageComponent
+    SettingsPageComponent,
+    AddressPageComponent,
+    AddressFormComponent
   ],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: '',
-        component: UsersPageComponent
-      },
-      {
-        path: '/settings',
-        component: SettingsPageComponent
+        component: UsersPageComponent,
+        children: [
+          {
+            path: 'settings',
+            component: SettingsPageComponent
+          },
+          {
+            path: 'address',
+            component: AddressPageComponent
+          }
+        ]
       }
     ])
   ]

@@ -5,12 +5,15 @@ import { RouterModule } from '@angular/router';
 
 import { HomePageComponent } from './home-page.component';
 
+import { SharedModule } from '@shared/shared.module';
+
 @NgModule({
   declarations: [
     HomePageComponent
   ],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: '',
