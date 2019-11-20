@@ -5,11 +5,6 @@ export const GLOBAL_EVENTS = {
   USER_LOGOUT: 'user-logout'
 };
 
-export interface IEventData {
-  src: string;
-  [key: string]: any;
-}
-
 @Injectable({
   providedIn: 'root'
 })

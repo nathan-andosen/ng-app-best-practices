@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EventManager } from '@thenja/event-manager';
 import * as Rx from 'rxjs';
+import { IEmittedEventData } from '@core/interfaces';
 
 export const AUTH_EVENTS = {
   LOGOUT: 'logout'
@@ -14,13 +15,21 @@ export class AuthService {
   events = new EventManager();
   // or
   // use a RxJs Subject, which only relates to one event
-  userLogout$: Rx.BehaviorSubject<void>;
+  userLogout$: Rx.BehaviorSubject<IEmittedEventData>;
+
+
+  constructor() {
+    this.userLogout$ = new Rx.BehaviorSubject(null);
+  }
 
 
   fireLogoutEvent() {
-    this.events.emit(AUTH_EVENTS.LOGOUT);
+    const data: IEmittedEventData = {
+      src: 'AuthService'
+    };
+    this.events.emit(AUTH_EVENTS.LOGOUT, data);
     // or
-    this.userLogout$.next(null);
+    this.userLogout$.next(data);
   }
 
 }

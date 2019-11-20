@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { GlobalEventsService, GLOBAL_EVENTS, IEventData } from '@core/services';
+import { GlobalEventsService, GLOBAL_EVENTS } from '@core/services';
+import { IEmittedEventData } from '@core/interfaces';
+
 
 @Component({
   selector: 'app-header',
@@ -12,7 +14,7 @@ export class HeaderComponent {
 
 
   logout() {
-    const eventData: IEventData = {
+    const eventData: IEmittedEventData = {
       src: 'HeaderComponent',
       someData: true
     };

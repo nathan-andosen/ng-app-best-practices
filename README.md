@@ -1,5 +1,7 @@
 # Angular App Best Practices
 
+This repo highlights common best practices and personal opinions when building frontend web apps. A lot of the topics could be related to any frontend framework, but we do focus on Angular.
+
 Angular version: __8.x.x__
 
 ## Application Structure
@@ -82,9 +84,40 @@ import { WebWorkerService } from '@core/services';
 * Use scss variables. Create a [_variables.scss](src/styles/_variables.scss) in the _/src/styles/_ directory. Place all variables in here. You can now import them in any file like: ``@import "variables";``
 * Use a size base value variable, like the one in the [_variables.scss](src/styles/_variables.scss) file. This is used for all your spacing and structure styling.
 
+## Handling Events
+
+There are many ways to handle events, some of the topics below are not really best practices but more personal opinion.
+
+### App wide events / Global event hub
+
+Sometimes you may need your app to have a global app wide event hub. One way to accomplish this is to use a [global events service](src/app/core/services/global-events.service.ts), this service uses a pub/sub events manager: [event-manage](https://github.com/nathan-andosen/event-manager). You can see in the [header component](src/app/core/components/header/header.component.ts) an example of emitting an event. You can see in the [home component](src/app/features/home/home-page.component.ts) an example of listening to an event (this uses a decorator, which automatically subscribes and unsubscribes for us).
+
+### Component to Component - or - Service to Service communication
+
+Sometimes you may want two or more components to communicate with each other (not parent / child components). To handle this, we can simple use a service that is used to emit events and both components can listen to these events. There is a couple of ways you can add events to your service, look at the [auth service](src/app/core/services/auth.service.ts) for examples.
+
+### Parent & Child component communication
+
+Parent components should pass data to child components via attributes. Child components should fire events up to parent components. This is a common best practice. However, if for any reason this does not meet your requirements, you could use a service (as mentioned above) to handle the communication.
+
 ## Building better components
 
 * Least amount of injected dependencies
 * No business logic, this goes in a service
 
-#### Smart vs Dumb components
+### Smart vs Dumb components
+
+__Dumb components:__
+
+* Presentaional only, used to display data
+* Delegate user interaction up to smart components via events
+* Data is normally passed to dumb components via attributes
+* Great for re-uasability
+
+__Smart Components:__
+
+* Will contain business logic, not directly, this should be done in a service, and the smart component will use this service.
+* Pass data to dumb components
+* React to events from dumb components
+* Are top level routable components (pages)
+

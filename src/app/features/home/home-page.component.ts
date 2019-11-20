@@ -1,21 +1,43 @@
-import { Component } from '@angular/core';
-import { GlobalEventsService, GLOBAL_EVENTS, IEventData } from '@core/services';
+import { Component, OnDestroy } from '@angular/core';
+import { GlobalEventsService, GLOBAL_EVENTS } from '@core/services';
 import { EventListener } from '@thenja/event-manager';
+import { AuthService, AUTH_EVENTS } from '@core/services';
+import { IEmittedEventData } from '@core/interfaces';
+import * as Rx from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnDestroy {
   userLogoutState = '';
+  authLogoutSubscription: Rx.Subscription;
 
-  constructor(protected globalEventsSrv: GlobalEventsService) {}
+  constructor(protected globalEventsSrv: GlobalEventsService,
+  protected authSrv: AuthService) {
+    // if you use BehaviorSubject's as a way to communicate, you can
+    // subscribe like this. Make sure you unsubscribe
+    this.authLogoutSubscription = this.authSrv.userLogout$.subscribe((data) => {
 
+    });
+  }
+
+
+  ngOnDestroy() {
+    if (this.authLogoutSubscription) this.authLogoutSubscription.unsubscribe();
+  }
 
   @EventListener(GLOBAL_EVENTS.USER_LOGOUT, GlobalEventsService.name)
-  userLogout(data: IEventData) {
+  userLogout(data: IEmittedEventData) {
     this.userLogoutState = 'User clicked logout from: ' + data.src;
   }
 
+  // We can listen to logout events on the auth service like this
+  // The advantage of this is we do not have to subscribe and unsubscribe, this
+  // is handled automatically by the decorator
+  @EventListener(AUTH_EVENTS.LOGOUT, AuthService.name)
+  authLogout(data: IEmittedEventData) {
+
+  }
 }
