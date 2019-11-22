@@ -1,0 +1,6 @@
+{
+  "locale": "en-AU",
+  "api": {
+    "base": "https://some.api/url"
+  }
+}

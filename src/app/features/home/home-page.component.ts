@@ -4,6 +4,7 @@ import { EventListener } from '@thenja/event-manager';
 import { AuthService, AUTH_EVENTS } from '@core/services';
 import { IEmittedEventData } from '@core/interfaces';
 import * as Rx from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home-page',
@@ -21,6 +22,8 @@ export class HomePageComponent implements OnDestroy {
     this.authLogoutSubscription = this.authSrv.userLogout$.subscribe((data) => {
 
     });
+
+    console.log('Base api url is: ' + environment.config.api.base);
   }
 
 
