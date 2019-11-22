@@ -30,6 +30,9 @@ This repo highlights common best practices, tips, possible solutions and persona
 8. __Use composition over inhertiance__
     * Where possible, try and use composition instead of inheritance.
     * There are multiple ways to accomplish this with Javascript / Typescript. One way is to just add properties on a class that are set to other classes, [example found here](src/app/core/models/user/user.model.ts). Another way is to use a mixin style, [example found here](src/app/core/models/maths/maths.model.ts).
+9. __Code splitting__
+    * You should use code splitting when you application is quite large.
+    * If you use the application structure detailed below, you can split the code using Angular lazy loaded routes. View the diagram below in the Application Structure.
 
 
 ## Application Structure
