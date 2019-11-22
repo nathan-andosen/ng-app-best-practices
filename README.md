@@ -1,9 +1,3 @@
-# TODO:
-
-* Give examples of composition over inheritance
-    * Using mixin
-    * Using simple properties as classes
-
 # Angular App Best Practices
 
 This repo highlights common best practices, tips, possible solutions and personal opinions on many topics related to building frontend web apps. A lot of the topics could be related to any frontend framework, but we do focus on Angular.
@@ -35,6 +29,7 @@ This repo highlights common best practices, tips, possible solutions and persona
     * If you follow the application structure below, it will help in keeping your code modular.
 8. __Use composition over inhertiance__
     * Where possible, try and use composition instead of inheritance.
+    * There are multiple ways to accomplish this with Javascript / Typescript. One way is to just add properties on a class that are set to other classes, [example found here](src/app/core/models/user/user.model.ts). Another way is to use a mixin style, [example found here](src/app/core/models/maths/maths.model.ts).
 
 
 ## Application Structure

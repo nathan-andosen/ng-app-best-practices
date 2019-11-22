@@ -5,6 +5,9 @@ import { AuthService, AUTH_EVENTS } from '@core/services';
 import { IEmittedEventData } from '@core/interfaces';
 import * as Rx from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { MathsModel } from '@core/models/maths';
+import { UserModel } from '@core/models/user';
+
 
 @Component({
   selector: 'app-home-page',
@@ -23,7 +26,15 @@ export class HomePageComponent implements OnDestroy {
 
     });
 
+    // access our enviroment config
     console.log('Base api url is: ' + environment.config.api.base);
+
+    // use models that use composition, not inheritance
+    const user = new UserModel();
+    user.settings.doSomethingToSettings();
+
+    const maths = new MathsModel();
+    maths.add(1, 2);
   }
 
 
