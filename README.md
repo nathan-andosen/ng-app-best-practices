@@ -169,3 +169,7 @@ The default Angular setup wants you to do a different build for each different e
 * You will see in the [environments](src/app/environments) folder, we have changed the environment class.
 * The [main.ts](src/app/main.ts) file now loads differently. It first must fetch the app-config.json file before bootstrapping the Angular app.
 * You can see an example in the [home component](src/app/features/home/home-page.component.ts) on how to get access to the config.
+
+## Testing
+
+_Todo_
