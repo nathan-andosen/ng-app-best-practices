@@ -7,4 +7,20 @@ button {
   &:hover {
     background-color: #aaa;
   }
+  // span.left-ic,
+  // span.right-ic {
+  //   display: none;
+  // }
+
+  &.has-left-icon {
+    span.left-ic {
+      display: inline-block;
+    }
+  }
+
+  &.has-right-icon {
+    span.right-ic {
+      display: inline-block;
+    }
+  }
 }

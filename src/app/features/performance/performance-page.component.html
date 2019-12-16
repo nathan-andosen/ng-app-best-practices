@@ -1,0 +1,32 @@
+<div>
+  <h1>Performance Page</h1>
+
+  <!-- <ul>
+    <li *ngFor="let btnLbl of btns">
+      <button>{{ btnLbl }}</button>
+    </li>
+  </ul> -->
+
+
+  <!-- <ul>
+    <li *ngFor="let btnLbl of btns; trackBy: trackByFunc">
+      <app-button icon="add" iconRight="arrow_forward" size="lg"
+      btnClass="fake-class">{{ btnLbl }}</app-button>
+    </li>
+  </ul> -->
+
+  <ul>
+    <li *ngFor="let btnLbl of btns; trackBy: trackByFunc">
+      <app-button size="lg"
+      btnClass="fake-class">{{ btnLbl }}</app-button>
+    </li>
+  </ul>
+
+  <!-- <ul>
+    <li *ngFor="let btnLbl of btns">
+      <app-button>{{ btnLbl }}</app-button>
+    </li>
+  </ul> -->
+
+
+</div>

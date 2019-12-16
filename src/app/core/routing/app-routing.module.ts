@@ -19,6 +19,13 @@ const routes: Routes = [
     data: {
       name: 'users'
     }
+  },
+  {
+    path: 'performance',
+    loadChildren: '../../features/performance/performance.module#PerformanceModule',
+    data: {
+      name: 'performance'
+    }
   }
 ];
 

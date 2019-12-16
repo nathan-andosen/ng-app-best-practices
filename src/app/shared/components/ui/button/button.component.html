@@ -1,3 +1,8 @@
-<button>
+<button class="{{btnClass}} {{size}}"
+[attr.disabled]="disabled">
+  <span *ngIf="icon" class="icomoon-{{icon}} mr-1 button-icon left-ic" 
+    aria-hidden="true"></span> 
   <ng-content></ng-content>
+  <span *ngIf="iconRight" class="icomoon-{{iconRight}} mr-1 button-icon right-ic" 
+    aria-hidden="true"></span> 
 </button>
