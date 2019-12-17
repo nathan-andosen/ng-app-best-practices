@@ -30,6 +30,8 @@ export class UserCreationComponent implements OnDestroy {
         { type: 'fish', name: 'Phil' }
       ]
     });
+    this.user.address.updateStreet('1 Old McDonald farm road',
+      '[UserCreationComponent] updateStreet');
 
     this.user.events.on(USER_EVENTS.DATA_CHANGED, (data) => {
       console.log('USER_EVENTS.DATA_CHANGED', data);

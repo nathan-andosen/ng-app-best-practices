@@ -125,7 +125,7 @@ There are many ways to handle events, some of the topics below are not really be
 
 ### App wide events / Global event hub
 
-Sometimes you may need your app to have a global app wide event hub. One way to accomplish this is to use a [global events service](src/app/core/services/global-events.service.ts), this service uses a pub/sub events manager: [event-manage](https://github.com/nathan-andosen/event-manager). You can see in the [header component](src/app/core/components/header/header.component.ts) an example of emitting an event. You can see in the [home component](src/app/features/home/home-page.component.ts) an example of listening to an event (this uses a decorator, which automatically subscribes and unsubscribes for us).
+Sometimes you may need your app to have a global app wide event hub. One way to accomplish this is to use a [global events service](src/app/core/services/global-events.service.ts), this service uses a pub/sub events manager: [EventManager](https://github.com/nathan-andosen/event-manager). You can see in the [header component](src/app/core/components/header/header.component.ts) an example of emitting an event. You can see in the [home component](src/app/features/home/home-page.component.ts) an example of listening to an event (this uses a decorator, which automatically subscribes and unsubscribes for us).
 
 ### Component to Component - or - Service to Service communication
 
@@ -164,7 +164,25 @@ __Smart Components:__
 
 ## Building better models
 
-_Todo_
+Check out the [User Model](src/app/core/models/user/user.model.ts) for some helpful examples on how you might accomplish some good practices like: reactive state management, single responsibility & composition and event handling.
+
+#### Helpful tips
+
+* __State management__
+  * Your model will most likely have some type of state / data. For example, a user model may have a name, address and preferences as its data.
+  * Making this state reactive is a good practice
+  * You could use something like [ngrx](https://ngrx.io/) to handle state management, however, this may be overkill in many cases as its a large and complex library
+  * We could just use RxJs to handle a reactive state / store. Something like: [ObservableStore](src/app/core/models/observable-store.model.ts)
+  * Check out the [User Model](src/app/core/models/user/user.model.ts) for a good example. You can see how it is used reactively in the [User Creation Component](src/app/features/home/components/user-creation/user-creation.component.html)
+* __Single responsibility__
+  * A lot of the time your class model object will grow quite large and have a lot of different functionality
+  * It is a good practice to split the model into smaller classes that handle a particular functionality
+  * Check out the [User Model](src/app/core/models/user/user.model.ts) for a good example. In this example, we would assume the User model has a lot more functionality, so we split the address functionality into its own class as well as the user settings. The we use a form of composition to combine all the functionality back into the [User Model](src/app/core/models/user/user.model.ts).
+  * You can see how we use this [User Model](src/app/core/models/user/user.model.ts) in the [User Creation Component](src/app/features/home/components/user-creation/user-creation.component.ts). We can now access the address functionality of a user by writing: ``user.address.someMethod()``.
+* __Events__
+  * Even know your model has reactive state, you might still have a need for events to be emitted from your model
+  * One way to accomplish this is to use the [EventManager](https://github.com/nathan-andosen/event-manager) library as stated above in the _Handling Events_ section
+  * Check out the [User Model](src/app/core/models/user/user.model.ts) for a good example. Now we can listen to events from a user like: ``user.events.on('some-event', (data) => {})``
 
 ## One build, deploy to many environments
 
