@@ -199,6 +199,8 @@ The default Angular setup wants you to do a different build for each different e
 
 _Todo_
 
+* https://angular-guru.com/blog/angular-performance-tips
+
 ## Testing
 
 _Todo_
