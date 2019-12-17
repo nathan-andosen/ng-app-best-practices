@@ -1,8 +1,17 @@
 @import "../assets/icon-fonts/style.css";
 
 @import "./variables";
+@import "./typography";
+@import "./headings";
 
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }

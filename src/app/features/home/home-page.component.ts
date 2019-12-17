@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { GlobalEventsService, GLOBAL_EVENTS } from '@core/services';
 import { EventListener } from '@thenja/event-manager';
 import { AuthService, AUTH_EVENTS } from '@core/services';
@@ -6,13 +6,13 @@ import { IEmittedEventData } from '@core/interfaces';
 import * as Rx from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MathsModel } from '@core/models/maths';
-import { UserModel } from '@core/models/user';
 
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePageComponent implements OnDestroy {
   userLogoutState = '';
@@ -30,8 +30,6 @@ export class HomePageComponent implements OnDestroy {
     console.log('Base api url is: ' + environment.config.api.base);
 
     // use models that use composition, not inheritance
-    const user = new UserModel();
-    user.settings.doSomethingToSettings();
 
     const maths = new MathsModel();
     maths.add(1, 2);

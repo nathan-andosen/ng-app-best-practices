@@ -1,13 +1,20 @@
 <header>
-  <a routerLink="/home" routerLinkActive="active">
-    <h1>Angular app best practices</h1>
-  </a>
-  <div>
-    <app-button (click)="logout()">Logout</app-button>
-  </div>
-  <div>
-    <a routerLink="/performance">
-      <h3>Performance</h3>
+  <div class="start">
+    <a routerLink="/home" routerLinkActive="active">
+      <h1>Angular app best practices</h1>
     </a>
+  </div>
+  <nav class="middle">
+    <ul class="nav-menu">
+      <li>
+        <a routerLink="/users" routerLinkActive="active">Users</a>
+      </li>
+      <li>
+        <a routerLink="/performance" routerLinkActive="active">Performance</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="end">
+    <app-button (click)="logout()">Logout</app-button>
   </div>
 </header>

@@ -1,0 +1,32 @@
+<div>
+  <h2 class="content-header">User creation</h2>
+  <app-button (click)="createUser()">Create user</app-button>
+  <p>
+    <span>User created: </span>
+    <span>{{ (user?.store.state$ | async)?.name }}</span>
+  </p>
+  <p>
+    <span>User address: </span>
+    <span>{{ (user?.store.state$ | async)?.address?.street }}</span>
+  </p>
+  <p>Users pets:</p>
+  <ul>
+    <li *ngFor="let pet of (user?.store.state$ | async)?.pets">
+      {{ pet.name }} ({{ pet.type }})
+    </li>
+  </ul>
+  <div>
+    <p>Change users name</p>
+    <input
+    [value]="(user?.store.state$ | async)?.name"
+    (input)="user?.updateName($event.target.value,
+    '[HomePageComponent] updateName')" />
+  </div>
+  <div>
+    <p>Change users address</p>
+    <input
+    [value]="(user?.store.state$ | async)?.address?.street"
+    (input)="user?.address.updateStreet($event.target.value,
+    '[HomePageComponent] updateStreet')" />
+  </div>
+</div>

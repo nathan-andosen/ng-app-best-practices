@@ -97,6 +97,9 @@ Now you can import like:
 import { CoreModule } from '@core/core.module';
 import { isSet } from '@core/utilities';
 import { DatePickerComponent } from '@shared/components/date-picker';
+
+// IMPORTANT: you can not do this, you must specify a /sometext
+import { CoreModule } from '@core';
 ```
 
 #### _Best practice two:_
@@ -159,6 +162,10 @@ __Smart Components:__
 * React to events from dumb components
 * Are top level routable components (pages)
 
+## Building better models
+
+_Todo_
+
 ## One build, deploy to many environments
 
 _This is not a best practice, more of a personal opinion._
@@ -169,6 +176,10 @@ The default Angular setup wants you to do a different build for each different e
 * You will see in the [environments](src/app/environments) folder, we have changed the environment class.
 * The [main.ts](src/app/main.ts) file now loads differently. It first must fetch the app-config.json file before bootstrapping the Angular app.
 * You can see an example in the [home component](src/app/features/home/home-page.component.ts) on how to get access to the config.
+
+## Performance tips
+
+_Todo_
 
 ## Testing
 

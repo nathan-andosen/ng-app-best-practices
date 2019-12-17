@@ -4,6 +4,7 @@ import { AppRoutingModule } from '@core/routing/app-routing.module';
 
 import { HeaderComponent } from './components/header';
 import { SharedModule } from '@shared/shared.module';
+import { PageWrapComponent } from './components/page-wrap';
 
 @NgModule({
   imports: [
@@ -12,12 +13,14 @@ import { SharedModule } from '@shared/shared.module';
     SharedModule
   ],
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    PageWrapComponent
   ],
   exports: [
     CommonModule,
     AppRoutingModule,
-    HeaderComponent
+    HeaderComponent,
+    PageWrapComponent
   ]
 })
 export class CoreModule {

@@ -1,13 +1,15 @@
 <div>
-  <h1>Home Page</h1>
-  <nav>
-    <a routerLink="/users" routerLinkActive="active">Users</a>
-  </nav>
-  
+  <h2 class="content-header">Welcome!</h2>
+  <p>Welcome to Angular best practices app.</p>
   <div>
     <app-button>App Button. Click Me!</app-button>
   </div>
   <div *ngIf="userLogoutState">
     {{ userLogoutState  }}
   </div>
+
+
+  <app-user-creation></app-user-creation>
+
+  
 </div>
