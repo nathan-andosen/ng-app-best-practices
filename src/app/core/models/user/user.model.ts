@@ -3,7 +3,7 @@ import { UserSettingsModel } from './user-settings.model';
 import { ObservableStore } from '@core/models/observable-store.model';
 import { IUserData } from './user.interfaces';
 import { EventManager } from '@thenja/event-manager';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { AuthService } from '@core/services';
 
 
@@ -26,6 +26,14 @@ export class UserModel {
   private storeChangedSubscription: Subscription;
   address: UserAddressModel;
   settings: UserSettingsModel;
+
+  get state$(): Observable<IUserData> {
+    return this.store.state$;
+  }
+
+  get state(): IUserData {
+    return this.store.state;
+  }
 
   /**
    * Creates an instance of UserModel.

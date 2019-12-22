@@ -1,11 +1,12 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { UserModel, USER_EVENTS, UserFactory } from '@core/models/user';
 
 
 @Component({
   selector: 'app-user-creation',
   templateUrl: './user-creation.component.html',
-  styleUrls: ['./user-creation.component.scss']
+  styleUrls: ['./user-creation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserCreationComponent implements OnDestroy {
   user: UserModel;

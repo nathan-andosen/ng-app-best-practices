@@ -1,5 +1,4 @@
-
-import {Observable, BehaviorSubject} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 // When changing the state for an entity, it is referred to as an action
 export interface IActionHistory {
@@ -8,51 +7,62 @@ export interface IActionHistory {
   nowState: any;
 }
 
+export interface IObservableStoreOptions {
+  maxHistoryCount: number;
+}
+
+
 /**
  * Observable Store.
  *
  * Inspired by: https://github.com/DanWahlin/Observable-Store
  *
- * Only works with json objects. (Could easily be updated to work with other
- * state types)
+ * Only works with json objects. (Could easily be updated for other state types)
  *
  * Used to store state for an entity. Uses observables for reactive programming
  * and keeps a limited history of updates / changes to the state.
  */
 export class ObservableStore<T> {
-  private historyCount = 50;
-  private actionHistory: IActionHistory[] = [];
+  private options: IObservableStoreOptions = { maxHistoryCount: 50 };
+  private _actionHistory: IActionHistory[] = [];
 
   // Our entities state as an observable.
   // Other intrested entities can subscribe to state updates via this observable
-  state$: Observable<T>;
+  readonly state$: Observable<T>;
 
   // Our RxJs BehaviorSubject. No one should have access to this.
-  private stateSubject$: BehaviorSubject<T>;
+  private _state$: BehaviorSubject<T>;
 
+  // Return a snapshot of our state
+  get state(): T {
+    return this._state$.getValue();
+  }
 
   /**
    * Constructor
    */
-  constructor(initialeState?: T) {
-    this.stateSubject$ = new BehaviorSubject(initialeState);
-    this.state$ = this.stateSubject$.asObservable();
-  }
+  constructor(initialeState?: T, options?: IObservableStoreOptions) {
+    this._state$ = new BehaviorSubject(initialeState);
+    this.state$ = this._state$.asObservable();
 
+    if (options) {
+      this.options = { ...this.options as any, ...options as any };
+    }
+  }
 
   /**
    * Return a snapshot of the tracking history
    */
-  getActionHistory(): IActionHistory[] {
-    return this.actionHistory;
+  actionHistory(): IActionHistory[] {
+    return this._actionHistory;
   }
 
 
   /**
    * Return a snapshot of our state
    */
-  get state(): T {
-    return this.stateSubject$.getValue();
+  getState(): T {
+    return this._state$.getValue();
   }
 
 
@@ -60,8 +70,8 @@ export class ObservableStore<T> {
    * Push new state into the state stream
    */
   setState(nextState: T, action?: string): void {
-    this.addHistory((action || 'not-set'), this.state, nextState);
-    this.stateSubject$.next(nextState);
+    this.addHistory((action || 'not-set'), this._state$, nextState);
+    this._state$.next(nextState);
   }
 
 
@@ -69,7 +79,7 @@ export class ObservableStore<T> {
    * Patch the existing state with new properties
    */
   patchState(patchState: Partial<T>, action?: string): void {
-    const newData = { ...this.state, ...patchState };
+    const newData = this.deepCloneAndPatch(this.state, patchState);
     this.setState(newData, action);
   }
 
@@ -78,13 +88,53 @@ export class ObservableStore<T> {
    * Add tracking history
    */
   private addHistory(action: string, previousState: any, nowState: any) {
-    if (this.actionHistory.length > this.historyCount) {
-      this.actionHistory.shift();
+    if (this._actionHistory.length > this.options.maxHistoryCount) {
+      this._actionHistory.shift();
     }
-    this.actionHistory.push({
+
+    this._actionHistory.push({
       action,
       previousState,
       nowState
     });
+  }
+
+
+  /**
+   * Deep clone a json object and patch it with another json object
+   *
+   * @private
+   * @param {*} obj1
+   * @param {*} patch
+   * @returns {*}
+   * @memberof ObservableStore
+   */
+  private deepCloneAndPatch(obj1: any, patch: any): any {
+    if (!patch) return obj1;
+    const obj = JSON.parse(JSON.stringify(obj1));
+    this.mergeRecusive(obj, patch);
+    return obj;
+  }
+
+
+  /**
+   * Merge one json object with another (deep merge)
+   *
+   * @private
+   * @param {*} obj1
+   * @param {*} patch
+   * @memberof ObservableStore
+   */
+  private mergeRecusive(obj1: any, patch: any) {
+    for (const key in patch) {
+      if (patch.hasOwnProperty(key)) {
+        if (typeof obj1[key] === 'undefined'
+        || patch[key].constructor !== {}.constructor) {
+          obj1[key] = patch[key];
+        } else {
+          this.mergeRecusive(obj1[key], patch[key]);
+        }
+      }
+    }
   }
 }
