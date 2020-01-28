@@ -6,6 +6,11 @@ import { HeaderComponent } from './components/header';
 import { SharedModule } from '@shared/shared.module';
 import { PageWrapComponent } from './components/page-wrap';
 
+
+import { HomePageComponent } from '@features/home';
+import { UserCreationComponent } from '@features/home/components/user-creation';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -14,7 +19,9 @@ import { PageWrapComponent } from './components/page-wrap';
   ],
   declarations: [
     HeaderComponent,
-    PageWrapComponent
+    PageWrapComponent,
+    // HomePageComponent,
+    // UserCreationComponent
   ],
   exports: [
     CommonModule,

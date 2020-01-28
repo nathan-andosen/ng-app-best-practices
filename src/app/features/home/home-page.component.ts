@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { GlobalEventsService, GLOBAL_EVENTS } from '@core/services';
 import { EventListener } from '@thenja/event-manager';
 import { AuthService, AUTH_EVENTS } from '@core/services';
@@ -8,18 +8,21 @@ import { environment } from 'src/environments/environment';
 import { MathsModel } from '@core/models/maths';
 
 
+
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomePageComponent implements OnDestroy {
+export class HomePageComponent implements OnDestroy, OnInit {
   userLogoutState = '';
   authLogoutSubscription: Rx.Subscription;
 
-  constructor(protected globalEventsSrv: GlobalEventsService,
-  protected authSrv: AuthService) {
+  constructor(public authSrv: AuthService,
+  private changeRef: ChangeDetectorRef,
+  public globalEventsSrv: GlobalEventsService,
+  ) {
     // if you use BehaviorSubject's as a way to communicate, you can
     // subscribe like this. Make sure you unsubscribe
     this.authLogoutSubscription = this.authSrv.userLogout$.subscribe((data) => {
@@ -31,24 +34,31 @@ export class HomePageComponent implements OnDestroy {
 
     // use models that use composition, not inheritance
 
+    // this.globalEventsSrv.events.on(GLOBAL_EVENTS.USER_LOGOUT, () => {
+    //   console.log('asdkf jk;adjf;lajdf ;klajfd ;a');
+    // });
+
     const maths = new MathsModel();
     maths.add(1, 2);
   }
+
+  ngOnInit() {}
 
 
   ngOnDestroy() {
     if (this.authLogoutSubscription) this.authLogoutSubscription.unsubscribe();
   }
 
-  @EventListener(GLOBAL_EVENTS.USER_LOGOUT, GlobalEventsService.name)
+  @EventListener(GLOBAL_EVENTS.USER_LOGOUT, GlobalEventsService)
   userLogout(data: IEmittedEventData) {
     this.userLogoutState = 'User clicked logout from: ' + data.src;
+    this.changeRef.detectChanges();
   }
 
   // We can listen to logout events on the auth service like this
   // The advantage of this is we do not have to subscribe and unsubscribe, this
   // is handled automatically by the decorator
-  @EventListener(AUTH_EVENTS.LOGOUT, AuthService.name)
+  @EventListener(AUTH_EVENTS.LOGOUT, AuthService)
   authLogout(data: IEmittedEventData) {
 
   }

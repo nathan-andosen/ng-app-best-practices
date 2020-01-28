@@ -4,23 +4,27 @@ import { ButtonComponent } from './components/ui/button';
 import { FormsModule } from '@angular/forms';
 import { LargeSizeComponent } from './components/large-size';
 
+import { UIModule } from './components/ui';
+import { UserCreateModule } from './components/user-create';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    UserCreateModule,
+    UIModule
   ],
   declarations: [
-    ButtonComponent,
     LargeSizeComponent
   ],
   entryComponents: [
 
   ],
   exports: [
-    ButtonComponent,
     LargeSizeComponent,
-    FormsModule
+    FormsModule,
+    UserCreateModule,
+    UIModule
   ]
 })
 export class SharedModule {

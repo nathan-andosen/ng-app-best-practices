@@ -18,6 +18,6 @@ export class HeaderComponent {
       src: 'HeaderComponent',
       someData: true
     };
-    this.globalEventsSrv.emit(GLOBAL_EVENTS.USER_LOGOUT, eventData);
+    this.globalEventsSrv.events.emit(GLOBAL_EVENTS.USER_LOGOUT, eventData);
   }
 }

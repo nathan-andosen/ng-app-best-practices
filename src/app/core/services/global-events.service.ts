@@ -8,6 +8,10 @@ export const GLOBAL_EVENTS = {
 @Injectable({
   providedIn: 'root'
 })
-export class GlobalEventsService extends EventManager {
+export class GlobalEventsService {
+  events: EventManager;
 
+  constructor() {
+    this.events = new EventManager(GLOBAL_EVENTS);
+  }
 }

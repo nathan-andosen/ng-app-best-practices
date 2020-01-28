@@ -1,0 +1,8 @@
+<div>
+  <h3>Change address:</h3>
+  <div>
+    <input
+    [value]="(user?.state$ | async)?.address?.street"
+    (input)="user?.address.updateStreet($event.target.value)" />
+  </div>
+</div>

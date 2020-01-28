@@ -42,7 +42,7 @@ export class UserModel {
    * @memberof UserModel
    */
   constructor(private authSrv: AuthService, userData?: IUserData) {
-    this.events = new EventManager();
+    this.events = new EventManager(USER_EVENTS);
     userData = userData || { name: '' };
     this.store = new ObservableStore(userData);
     this.settings = new UserSettingsModel();
