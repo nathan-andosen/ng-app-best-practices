@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { UserModel } from '@core/models/user';
-import { UserCreateService, USER_CREATE_EVENTS } from '../../services';
+import { UserCreateService, USER_CREATE_SRV_EVENTS } from '../../services';
 import { EventListener } from '@thenja/event-manager';
 
 
@@ -54,7 +54,7 @@ export class ChangeAddressComponent implements OnInit, OnDestroy {
    * @param {UserModel} user
    * @memberof ChangeAddressComponent
    */
-  @EventListener(USER_CREATE_EVENTS.CREATED, UserCreateService)
+  @EventListener(USER_CREATE_SRV_EVENTS.CREATED, UserCreateService)
   userCreated(user: UserModel) {
     this.user = user;
     this.changeRef.markForCheck();

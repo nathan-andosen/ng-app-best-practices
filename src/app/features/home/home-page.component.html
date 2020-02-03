@@ -7,6 +7,9 @@
   <div *ngIf="userLogoutState">
     {{ userLogoutState  }}
   </div>
+  <div>
+    <strong>User created: {{ user?.state?.name }}</strong>
+  </div>
 
   <app-user-create></app-user-create>
 </div>

@@ -12,8 +12,7 @@ import { UserCreateService } from './services/user-create.service';
 export class UserCreateComponent implements OnDestroy {
   user: UserModel;
 
-  constructor(private userFactory: UserFactory,
-  private userCreateSrv: UserCreateService) {}
+  constructor(private userCreateSrv: UserCreateService) {}
 
 
   ngOnDestroy() {
@@ -22,6 +21,8 @@ export class UserCreateComponent implements OnDestroy {
 
 
   createUser() {
+    console.log('User logged in: ' + this.userCreateSrv.userIsLoggedIn());
+
     if (this.user) this.user.destroy();
     this.user = this.userCreateSrv.createUser();
     this.user.address.updateStreet('1 Old McDonald farm road',

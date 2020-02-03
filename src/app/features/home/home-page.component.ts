@@ -6,6 +6,11 @@ import { IEmittedEventData } from '@core/interfaces';
 import * as Rx from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MathsModel } from '@core/models/maths';
+import {
+  UserCreateFacade,
+  USER_CREATE_EVENTS
+} from '@shared/components/user-create';
+import { UserModel } from '@core/models/user';
 
 
 
@@ -18,9 +23,11 @@ import { MathsModel } from '@core/models/maths';
 export class HomePageComponent implements OnDestroy, OnInit {
   userLogoutState = '';
   authLogoutSubscription: Rx.Subscription;
+  user: UserModel;
 
   constructor(public authSrv: AuthService,
   private changeRef: ChangeDetectorRef,
+  public userCreateFacade: UserCreateFacade,
   public globalEventsSrv: GlobalEventsService,
   ) {
     // if you use BehaviorSubject's as a way to communicate, you can
@@ -61,5 +68,11 @@ export class HomePageComponent implements OnDestroy, OnInit {
   @EventListener(AUTH_EVENTS.LOGOUT, AuthService)
   authLogout(data: IEmittedEventData) {
 
+  }
+
+
+  @EventListener(USER_CREATE_EVENTS.CREATED, UserCreateFacade)
+  userCreated(user: UserModel) {
+    this.user = user;
   }
 }

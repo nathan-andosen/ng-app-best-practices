@@ -32,4 +32,9 @@ export class AuthService {
     this.userLogout$.next(data);
   }
 
+
+  isLoggedIn(): boolean {
+    return true;
+  }
+
 }
