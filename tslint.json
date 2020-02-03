@@ -34,7 +34,12 @@
     "max-classes-per-file": false,
     "max-line-length": [
       true,
-      140
+      {
+        "limit": 80,
+        "ignore-pattern": "^import|^} from|require",
+        "check-strings": true,
+        "check-regex": false
+      }
     ],
     "member-access": false,
     "member-ordering": [

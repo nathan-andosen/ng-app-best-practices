@@ -152,7 +152,7 @@ Sometimes you will create a complex component that may contain its own services 
 * Interal components go into a folder called _components_. Internal services go into a folder called _services_. Same can be done for things like pipes, directives and so on.
 * Use a [facade](src/app/shared/components/user-create/user-create.facade.ts) to expose any api or functionality outside of the component.
 * All external services that you need to use in your component should be injected into your internal [service](src/app/shared/components/user-create/services/user-create.service.ts). Now you only need to inject the one service into your components, instead of having multiple dependencies, making it easier to maintain and test. In out example here, we use the AuthService which gets inject into out UserCreateService, then we use the UserCreateService in our internal components.
-* 
+* Styling for components should be in the component, not a global style sheet
 
 ### Smart vs Dumb components
 
